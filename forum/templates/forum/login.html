@@ -1,0 +1,36 @@
+
+{% extends "forum/base.html" %}
+
+{% block checker %}
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+    <div class="col-md-4">
+    <div class="classWithPad baselogin" id="baselogin">
+
+
+    <form method="post" action="{% url 'forum:login' %}">
+    {% csrf_token %}
+            <div id="heads"><label for="id_username">Username:</label></div>
+            <input class="classWithPad" id="id_username" maxlength="254" name="username" type="text" />
+            <div id="heads"><br><label for="id_password">Password:</label></div>
+            <input class="classWithPad loginst" id="id_password" name="password" type="password" /><br>
+            {% if form.errors %}
+                <p><br>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            <label for="id_remember_me"><input id="id_remember_me" name="remember_me" type="checkbox"/>Remember Me</label><br>
+            <input id="formbut" type="submit" value="login" class="btn btn-success" />
+            <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+    </div>
+    </div>
+
+
+
+{% endblock %}
+

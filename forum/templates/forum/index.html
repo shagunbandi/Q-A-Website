@@ -1,0 +1,108 @@
+ {% extends 'forum/base.html' %}
+
+{% block body %}
+{% block small %}
+ <div class="col-md-3" id="Qs">
+    <h3 id="heads"> &nbsp;&nbsp;Answered Questions : </h3>
+        {% if all_ques %}
+            {% for questions in all_ques %}
+                {% if questions.answer_set.all %}
+                    <a href="{% url 'forum:detail' questions.id %}">
+                        <div class="classWithPad leftwala">
+                            <p>{{ questions }}</p>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+        <div class="classWithPad">
+            <h3>No Questions Yet</h3>
+        </div>
+        {% endif %}
+
+     <h3 id="heads"> &nbsp;&nbsp;Unanswered Questions : </h3>
+        {% if all_ques %}
+            {% for questions in all_ques %}
+                {% if questions.answer_set.all %}
+                {% else %}
+                    <a href="{% url 'forum:detail' questions.id %}">
+                        <div class="classWithPad leftwala">
+                            <p>{{ questions }}</p>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+        <div class="classWithPad">
+            <h3>No Questions Yet</h3>
+        </div>
+        {% endif %}
+</div>
+
+{% endblock %}
+
+
+<div class="col-md-9" >
+    <h3 id="heads">&nbsp;&nbsp;{% block heading %}Recent Posts{% endblock %} : </h3>
+
+    {% if all_ques %}
+        {% for questions in all_ques reversed %}
+            <a href="{% url 'forum:detail' questions.id %}">
+                <div class="classWithPad rightwala" id="issele">
+                    {% block tag %}<h4>{% endblock %}{{ questions.ques }}{% block tagend %}</h4>{% endblock %}
+                    {% block author %}
+                    <span style="float:right"> {{ questions.ques_author }} - {{ questions.ques_date }}</span>
+                    {% endblock %}
+
+                    {% if questions.answer_set.all %}
+                            {% block ans %}<p>Answered</p>{% endblock %}
+                    {% else %}
+                            {% block line %}{% endblock %}
+                            <p>Not yet Answered</p>
+                    {% endif %}
+                    <hr>
+                    <form action="{% url 'forum:answer-add' questions.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="question_id" value="{{ questions.id }}"/>
+                        <button type="submit">
+                            <span>Know the Answer ?</span>
+                        </button>
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    {% if questions.ques_author == request.user.username or request.user.is_staff == True%}
+
+                        <form action="{% url 'forum:question-delete' questions.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="question_id" value="{{ questions.id }}"/>
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </form>
+                    {% endif %}
+                    {% if questions.ques_author == request.user.username %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <form action="{% url 'forum:question-update' questions.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="question_id" value="{{ questions.id }}"/>
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-edit"> </span>
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            </a>
+
+        {% endfor %}
+    {% else %}
+        <div class="classWithPad">
+                <h3>No Questions Yet</h3>
+        </div>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'forum/base.html' %}
+
+{% block body %}
+
+
+                 <form  action="/forum/login" method="post">
+                     {% csrf_token %}
+                     <label for="username">username :</label>
+                     <input type="text" name="username" value="" id="username">
+                     <label for="password">password :</label>
+                     <input type="password" name="password" value="" id="password">
+                     <input type="submit" value="login" ">Ask</input>
+
+                 </form>
+
+
+
+
+
+{% endblock %}

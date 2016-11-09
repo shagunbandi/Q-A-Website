@@ -1,0 +1,26 @@
+{% extends 'forum/base.html' %}
+
+
+{% block checker %}
+    <div class="col-md-9">
+    <div class="classWithPad">
+        <form class="form-horizontal" action="" method="post">
+            {% csrf_token %}
+            {% include 'forum/form-template.html' %}
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button type="submit" class="btn btn-success">Register</button>
+                </div>
+            </div>
+        </form>
+
+             </div>
+         </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+

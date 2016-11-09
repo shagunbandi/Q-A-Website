@@ -1,0 +1,47 @@
+ {% extends 'forum/base.html' %}
+{% block title %}{{ question.ques }}{% endblock %}
+{% block body %}
+
+<!--
+<div class="col-md-9" id="Posts">
+     <div class="classWithPad rightwala">
+        <h3>{{ question.ques }}</h3>
+         <p><span style="float:right">{{ question.ques_date }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{ question.ques_author }}</p>
+     </div>
+    {% if question.answer_set.all %}
+        {% for answeres in question.answer_set.all %}
+            <div class="classWithPad rightwala">
+                <h4>{{ answeres.ans }}</h4>
+                <p><span style="float:right">{{ answeres.ans_date }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{ answeres.ans_author }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="classWithPad rightwala">
+            <p>No answers Yet</p>
+        </div>
+    {% endif %}
+</div>
+
+-->
+
+     <div class="col-md-12">
+         <form class="form-horizontal" action="" method="post">
+             {% csrf_token %}
+             <label id="heads"><label for="id_ans">Write your Answer Here:</label></label>
+             <div id="ques">
+                 <textarea id="id_ans" class="col-md-9" maxlength="10000" name="ans" type="text"></textarea>
+             </div>
+             <br>
+             <div class="form-group col-md-9">
+                 <button id="formbut" type="submit" class="btn btn-success">Reply</button>
+             </div>
+         </form>
+     </div>
+
+
+
+
+
+
+{% endblock %}
+

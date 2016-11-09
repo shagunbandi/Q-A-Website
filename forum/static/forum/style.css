@@ -1,0 +1,158 @@
+@keyframes apear {
+    from {opacity:0;}
+    to {opacity: 1;}
+}
+
+@keyframes wiggle {
+    from {
+        transform: rotate(15deg);
+    }
+    to {
+        transform: rotate(-15deg);
+    }
+}
+
+body {
+    background: white url("images/back.jpg") no-repeat center center fixed;;
+    background-size: cover;
+	font-family: Source Sans Pro;
+    animation-name:apear;
+    animation-duration: .2s;
+}
+.navbar {
+	margin:10px;
+	border-radius: 20px;
+    margin-bottom: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+	font-family: myfont1;
+}
+
+@font-face {
+	font-family: myfont;
+	src: url('../forum/myfont.ttf');
+}
+
+@font-face {
+	font-family: myfont1;
+	src: url('../forum/myfont1.ttf');
+}
+
+
+.navbar-brand {
+	font-family: 'myfont' , cursive;
+}
+
+
+#msg {
+    color: #ecf9ec;
+    text-align: center;
+    width:100%;
+}
+.classWithPad {
+	border-radius: 20px;
+	padding: 5px;
+    margin-top: 10px;
+	padding-left: 40px;
+	padding-right: 40px;
+    padding-bottom: 20px;
+	transition-duration: .3s;
+	transition-property: background-color;
+    color: #ecf9ec;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+.leftwala{
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+.classWithPad:hover {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+a{
+	text-decoration: none;
+	color: #9d9d9d;
+	transition-duration: .3s;
+}
+a:visited {
+	text-decoration: none;
+	color: #9d9d9d;
+	transition-duration: .3s;
+
+}
+a:hover {
+	text-decoration: none;
+	color: #222222;
+}
+#heads {
+    font-size: 20px;
+    color: #ecf9ec;
+}
+
+button{
+    border:0px solid rgba(0,0,0,0);
+    background:rgba(0,0,0,0);
+}
+
+
+#id_ques, #id_ans {
+	border-radius: 20px;
+    color: #ecf9ec;
+	background-color: rgba(0, 0, 0, 0.5);
+    border:0px solid rgb(0,0,0);
+    height:100px;
+    margin: 0px;
+    font-size: 20px;
+}
+
+td > input{
+    width: 200px;
+    height: 30px;
+    border-radius: 20px;
+    color: #ecf9ec;
+	background-color: rgba(0, 0, 0, 0.5);
+    border:1px solid rgb(0,0,0);
+}
+
+table {
+    padding: 20px;
+    margin-left: 20px;
+}
+
+textarea {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#formbut {
+    position: relative;
+    left:20px;
+    top:20px;
+}
+
+.questiondetails {
+	background-color: rgba(0, 0, 0, 0.6);
+}
+
+#welcome {
+    color: #ecf9ec;
+}
+
+#id_username, #id_password {
+    padding-left: 30px;
+}
+
+.glyphicon {
+    transform: rotate(0deg);
+}
+.glyphicon:hover {
+    animation : wiggle .3s linear 0s infinite alternate;
+}
+li>a>.glyphicon:hover {
+    animation: none;
+}
+
+#Admin{
+    font-size: 40px;
+    color: #ecf9ec;
+}

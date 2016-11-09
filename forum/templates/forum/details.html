@@ -1,0 +1,99 @@
+ {% extends 'forum/base.html' %}
+{% block title %}{{ question.ques }}{% endblock %}
+{% block body %}
+
+<div class="col-md-9" id="Posts">
+     <div class="classWithPad rightwala">
+         <h3>{{ question.ques }}</h3>
+         <p><span style="float:right">{{ question.ques_date }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{ question.ques_author }}</p>
+         <hr>
+
+
+
+
+         <form action="{% url 'forum:answer-add' question.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="question_id" value="{{ question.id }}"/>
+                        <button type="submit">
+                            <span>Know the Answer ?</span>
+                        </button>
+                    </form>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                    {% if question.ques_author == request.user.username %}
+
+                        <form action="{% url 'forum:question-delete' question.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="question_id" value="{{ question.id }}"/>
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </form>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <form action="{% url 'forum:question-update' question.id %}" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="question_id" value="{{ question.id }}"/>
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-edit"> </span>
+                            </button>
+                        </form>
+                    {% endif %}
+
+
+
+
+
+
+     </div>
+    {% if question.answer_set.all %}
+
+
+
+
+
+
+
+        {% for answeres in question.answer_set.all reversed %}
+            <div class="classWithPad rightwala">
+                <h4>{{ answeres.ans }}</h4>
+                <span style="float: right">
+                {{ answeres.ans_date }} &nbsp;&nbsp;&nbsp;&nbsp;
+                {% if answeres.ans_author == request.user.username  or request.user.is_staff == True%}
+                     <form action="{% url 'forum:answer-delete' answeres.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="answer_id" value="{{ answeres.id }}"/>
+                        <button type="submit">
+                             <span class="glyphicon glyphicon-trash"></span>
+                         </button>
+                     </form>
+                {% endif %}
+                {% if answeres.ans_author == request.user.username %}
+                     &nbsp;&nbsp;&nbsp;&nbsp;
+                     <form action="{% url 'forum:answer-update' answeres.id %}" style="display:inline;">
+                         {% csrf_token %}
+                         <input type="hidden" name="answer_id" value="{{ answeres.id }}"/>
+                         <button type="submit">
+                             <span class="glyphicon glyphicon-edit"> </span>
+                         </button>
+                    </form>
+                {% endif %}
+                </span>
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-{{ answeres.ans_author }} - {{ answeres.id }}</p>
+            </div>
+
+    {% endfor %}
+
+
+
+
+
+    {% else %}
+        <div class="classWithPad rightwala">
+            <p>No answers Yet</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

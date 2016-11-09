@@ -1,0 +1,40 @@
+{% extends 'forum/index.html' %}
+{% block small %}
+{% endblock %}
+{% block line %}<hr>{% endblock %}
+{% block tag %}<h3>{% endblock %}
+{% block tagend %}</h3>{% endblock %}
+{% block author %}
+    <p><span style="float:right">{{ questions.ques_date }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{ questions.ques_author }}</p>
+{% endblock %}
+{% block heading %}
+    All Posts
+{% endblock %}
+{% block ans %}
+    {% for answeres in questions.answer_set.all reversed %}
+        <hr>
+        <p><span style="float:right">{{ answeres.ans_date }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- {{ answeres.ans_author }}</p>
+        <span style="float: right">
+            {% if answeres.ans_author == request.user.username  or request.user.is_staff == True%}
+                 <form action="{% url 'forum:answer-delete' answeres.id %}" method="post" style="display:inline;">
+                     {% csrf_token %}
+                     <input type="hidden" name="answer_id" value="{{ answeres.id }}"/>
+                     <button type="submit">
+                         <span class="glyphicon glyphicon-trash"></span>
+                     </button>
+                 </form>
+            {% endif %}
+            {% if answeres.ans_author == request.user.username %}
+                 &nbsp;&nbsp;&nbsp;&nbsp;
+                 <form action="{% url 'forum:answer-update' answeres.id %}" style="display:inline;">
+                     {% csrf_token %}
+                     <input type="hidden" name="answer_id" value="{{ answeres.id }}"/>
+                     <button type="submit">
+                         <span class="glyphicon glyphicon-edit"> </span>
+                     </button>
+                 </form>
+             {% endif %}
+        </span>
+        <h4>{{ answeres.ans }}</h4>
+    {% endfor %}
+{% endblock %}
