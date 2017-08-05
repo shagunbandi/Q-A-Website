@@ -1,4 +1,4 @@
-# mywebsitektj
+# Q&A Website
 A Question and Answer Website developed using Django and sqlite3.
 Can ask questions, Have a reply for them
 
